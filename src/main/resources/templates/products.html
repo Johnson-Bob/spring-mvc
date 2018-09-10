@@ -20,16 +20,18 @@
         <h2>Products List</h2>
         <table class="table table-striped">
             <tr>
-                <td>Id</td>
-                <td>Description</td>
-                <td>Price</td>
-                <td>Image URL</td>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Image URL</th>
+                <th>List</th>
             </tr>
             <tr th:each="product : ${products}">
                 <td th:text="${product.id}"/>
                 <td th:text="${product.description}"/>
                 <td th:text="${product.price}"/>
                 <td th:text="${product.imageUrl}"/>
+                <td><a th:href="${'/product/' + product.id}">View</a></td>
             </tr>
         </table>
     </div>
