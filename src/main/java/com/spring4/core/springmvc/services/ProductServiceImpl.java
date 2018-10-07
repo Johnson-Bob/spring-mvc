@@ -37,6 +37,11 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public void delete(Integer id) {
+        products.remove(id);
+    }
+
     private void loadProducts() {
         products = new HashMap<>();
 
