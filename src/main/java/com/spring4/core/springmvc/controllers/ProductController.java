@@ -21,25 +21,25 @@ public class ProductController {
     @RequestMapping("/products")
     public String listProduct(Model model) {
         model.addAttribute("products", productService.listAllProducts());
-        return "products";
+        return "product/products";
     }
 
     @RequestMapping("/product/{id}")
     public String getProduct(@PathVariable Integer id, Model model) {
         model.addAttribute("product", productService.getProductById(id));
-        return "product";
+        return "product/product";
     }
 
     @RequestMapping("/product/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("product", productService.getProductById(id));
-        return "productForm";
+        return "product/productForm";
     }
 
     @RequestMapping("/product/new")
     public String newProduct(Model model) {
         model.addAttribute("product", new Product());
-        return "productForm";
+        return "product/productForm";
     }
 
     @RequestMapping(value = "/product", method = RequestMethod.POST)
