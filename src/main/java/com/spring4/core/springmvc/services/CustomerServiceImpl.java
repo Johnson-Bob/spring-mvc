@@ -3,46 +3,11 @@ package com.spring4.core.springmvc.services;
 import com.spring4.core.springmvc.domain.Customer;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-
 @Service
-public class CustomerServiceImpl implements CustomerService {
-    private Map<Integer, Customer> customers;
-
-    public CustomerServiceImpl() {
-        loadCustomers();
-    }
+public class CustomerServiceImpl extends AbstractMapService<Customer> implements CustomerService {
 
     @Override
-    public List<Customer> listAllCustomers() {
-        return new ArrayList<>(customers.values());
-    }
-
-    @Override
-    public Customer getCustomerById(Integer id) {
-        return customers.get(id);
-    }
-
-    @Override
-    public Customer saveOrUpdateCustomer(Customer customer) {
-        if (customer != null) {
-            if (customer.getId() == null) {
-                customer.setId(getNextId());
-            }
-            customers.put(customer.getId(), customer);
-            return customer;
-        } else {
-            throw new RuntimeException("Customer can't be null");
-        }
-    }
-
-    @Override
-    public void delete(Integer id) {
-        customers.remove(id);
-    }
-
-    private void loadCustomers() {
-        customers = new HashMap<>();
+    protected void loadDomainObject() {
 
         Customer customer1 = new Customer();
         customer1.setId(1);
@@ -77,12 +42,8 @@ public class CustomerServiceImpl implements CustomerService {
         customer3.setEmail("sam@burnnotice.com");
         customer3.setPhoneNumber("305.426.9832");
 
-        customers.put(1, customer1);
-        customers.put(2, customer2);
-        customers.put(3, customer3);
-    }
-
-    private Integer getNextId() {
-        return Collections.max(customers.keySet()) + 1;
+        domainMap.put(1, customer1);
+        domainMap.put(2, customer2);
+        domainMap.put(3, customer3);
     }
 }

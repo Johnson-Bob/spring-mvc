@@ -1,7 +1,6 @@
 package com.spring4.core.springmvc.controllers;
 
 import com.spring4.core.springmvc.domain.Customer;
-import com.spring4.core.springmvc.domain.Product;
 import com.spring4.core.springmvc.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,19 +20,19 @@ public class CustomerController {
 
     @RequestMapping("/customers")
     public String listCustomers(Model model) {
-        model.addAttribute("customers", customerService.listAllCustomers());
+        model.addAttribute("customers", customerService.listAll());
         return "customer/customers";
     }
 
     @RequestMapping("/customer/{id}")
     public String getCustomer(@PathVariable Integer id, Model model) {
-        model.addAttribute("customer", customerService.getCustomerById(id));
+        model.addAttribute("customer", customerService.getById(id));
         return "customer/customer";
     }
 
     @RequestMapping("/customer/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("customer", customerService.getCustomerById(id));
+        model.addAttribute("customer", customerService.getById(id));
         return "customer/customerForm";
     }
 
@@ -45,7 +44,7 @@ public class CustomerController {
 
     @RequestMapping(value = "/customer", method = RequestMethod.POST)
     public String saveOrUpdateCustomer(Customer customer) {
-        Customer savedCustomer = customerService.saveOrUpdateCustomer(customer);
+        Customer savedCustomer = customerService.saveOrUpdate(customer);
         return "redirect:/customer/" + savedCustomer.getId();
     }
 
