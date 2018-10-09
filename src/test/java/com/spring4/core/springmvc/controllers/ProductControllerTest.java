@@ -42,7 +42,7 @@ public class ProductControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this); //initilazes controller and mocks
+        MockitoAnnotations.initMocks(this); //initializes controller and mocks
         mockMvc = MockMvcBuilders.standaloneSetup(productController).build();
     }
 
