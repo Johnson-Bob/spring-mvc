@@ -11,14 +11,4 @@ import java.math.BigDecimal;
 @Profile("map")
 public class ProductServiceImpl extends AbstractMapService<Product> implements ProductService {
 
-
-    @Override
-    protected void loadDomainObject() {
-        int i = 1;
-        for (Product product : UtilClass.generateListOfProduct()) {
-            product.setId(1);
-            domainMap.put(i, product);
-            i++;
-        }
-    }
 }

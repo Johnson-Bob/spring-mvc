@@ -9,7 +9,6 @@ public abstract class AbstractMapService<T extends DomainObject> {
 
     public AbstractMapService() {
         this.domainMap = new HashMap<>();
-        loadDomainObject();
     }
 
     public List<T> listAll() {
@@ -39,9 +38,11 @@ public abstract class AbstractMapService<T extends DomainObject> {
     }
 
     private Integer getNextKey() {
-        return Collections.max(domainMap.keySet()) + 1;
+        try {
+            return Collections.max(domainMap.keySet()) + 1;
+        } catch (NoSuchElementException e) {
+            return 1;
+        }
+
     }
-
-
-    protected abstract void loadDomainObject();
 }
