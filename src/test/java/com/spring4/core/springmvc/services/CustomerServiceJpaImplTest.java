@@ -26,13 +26,13 @@ public class CustomerServiceJpaImplTest {
 
     @Test
     public void getById() {
-        Integer id = 7;
+        Integer id = 2;
         assertEquals(id, customerService.getById(id).getId());
     }
 
     @Test
     public void saveOrUpdate() {
-        Integer id = 7;
+        Integer id = 2;
         String testFirstName = "TestName";
 
 //        Test update
@@ -53,7 +53,7 @@ public class CustomerServiceJpaImplTest {
 
     @Test
     public void delete() {
-        customerService.delete(8);
+        customerService.delete(3);
 
         assertEquals(2, customerService.listAll().size());
 
