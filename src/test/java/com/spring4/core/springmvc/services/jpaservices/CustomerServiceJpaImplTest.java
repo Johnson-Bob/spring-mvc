@@ -1,7 +1,9 @@
-package com.spring4.core.springmvc.services;
+package com.spring4.core.springmvc.services.jpaservices;
 
+import com.spring4.core.springmvc.TestUtils;
 import com.spring4.core.springmvc.configuration.JpaIntegrationConfig;
 import com.spring4.core.springmvc.domain.Customer;
+import com.spring4.core.springmvc.services.CustomerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = JpaIntegrationConfig.class)
@@ -45,7 +48,7 @@ public class CustomerServiceJpaImplTest {
         assertEquals(testFirstName, savedCustomer.getFirstName());
 
 //        Test save
-        savedCustomer = customerService.saveOrUpdate(createCustomer());
+        savedCustomer = customerService.saveOrUpdate(TestUtils.createCustomer());
         assertEquals(4, customerService.listAll().size());
 
         customerService.delete(savedCustomer.getId());
@@ -57,20 +60,20 @@ public class CustomerServiceJpaImplTest {
 
         assertEquals(2, customerService.listAll().size());
 
-        customerService.saveOrUpdate(createCustomer());
+        customerService.saveOrUpdate(TestUtils.createCustomer());
     }
 
-    private Customer createCustomer() {
-        Customer customer = new Customer();
-        customer.setFirstName("Micheal");
-        customer.setLastName("Weston");
-        customer.setAddressLine1("1 Main St");
-        customer.setCity("Miami");
-        customer.setState("Florida");
-        customer.setZipCode("33101");
-        customer.setEmail("micheal@burnnotice.com");
-        customer.setPhoneNumber("305.333.0101");
+    @Test
+    public void testSaveWithUser() {
+        Customer newCustomer = TestUtils.createCustomer();
+        newCustomer.setUser(TestUtils.createUser());
 
-        return customer;
+        Customer savedCustomer = customerService.saveOrUpdate(newCustomer);
+
+        assertNotNull(savedCustomer.getId());
+        assertNotNull(savedCustomer.getUser());
+        assertNotNull(savedCustomer.getUser().getEncryptedPassword());
+
+        customerService.delete(savedCustomer.getId());
     }
 }
