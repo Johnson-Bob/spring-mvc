@@ -1,9 +1,11 @@
 package com.spring4.core.springmvc.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
@@ -23,6 +25,9 @@ public class User implements DomainObject {
 
     private String encryptedPassword;
     private Boolean enabled = true;
+
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Customer customer;
 
     @Override
     public Integer getId() {
@@ -72,5 +77,13 @@ public class User implements DomainObject {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

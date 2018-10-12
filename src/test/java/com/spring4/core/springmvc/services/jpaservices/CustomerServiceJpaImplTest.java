@@ -72,6 +72,7 @@ public class CustomerServiceJpaImplTest {
 
         assertNotNull(savedCustomer.getId());
         assertNotNull(savedCustomer.getUser());
+        assertNotNull(savedCustomer.getUser().getId());
         assertNotNull(savedCustomer.getUser().getEncryptedPassword());
 
         customerService.delete(savedCustomer.getId());
