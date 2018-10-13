@@ -1,8 +1,6 @@
 package com.spring4.core.springmvc;
 
-import com.spring4.core.springmvc.domain.Customer;
-import com.spring4.core.springmvc.domain.Product;
-import com.spring4.core.springmvc.domain.User;
+import com.spring4.core.springmvc.domain.*;
 
 import java.math.BigDecimal;
 
@@ -37,4 +35,6 @@ public class TestUtils {
 
         return user;
     }
+
+
 }
