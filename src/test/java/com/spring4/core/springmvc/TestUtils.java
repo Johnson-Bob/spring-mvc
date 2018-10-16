@@ -9,10 +9,11 @@ public class TestUtils {
         Customer customer = new Customer();
         customer.setFirstName("Micheal");
         customer.setLastName("Weston");
-        customer.setAddressLine1("1 Main St");
-        customer.setCity("Miami");
-        customer.setState("Florida");
-        customer.setZipCode("33101");
+        customer.setBillingAddress(new Address());
+        customer.getBillingAddress().setAddressLine1("1 Main St");
+        customer.getBillingAddress().setCity("Miami");
+        customer.getBillingAddress().setState("Florida");
+        customer.getBillingAddress().setZipCode("33101");
         customer.setEmail("micheal@burnnotice.com");
         customer.setPhoneNumber("305.333.0101");
 
