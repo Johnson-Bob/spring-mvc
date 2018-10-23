@@ -3,8 +3,7 @@ package com.spring4.core.springmvc.domain;
 import javax.persistence.*;
 
 @Entity
-public class CartDetail implements DomainObject {
-
+public class OrderLine implements DomainObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -13,19 +12,17 @@ public class CartDetail implements DomainObject {
     private Integer version;
 
     @ManyToOne
-    private Cart cart;
-
-    @OneToOne
     private Product product;
 
     private Integer quantity;
 
-    @Override
+    @ManyToOne
+    private Order order;
+
     public Integer getId() {
         return id;
     }
 
-    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -36,14 +33,6 @@ public class CartDetail implements DomainObject {
 
     public void setVersion(Integer version) {
         this.version = version;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 
     public Product getProduct() {
@@ -60,5 +49,13 @@ public class CartDetail implements DomainObject {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

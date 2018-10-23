@@ -1,6 +1,8 @@
 package com.spring4.core.springmvc.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Customer implements DomainObject {
@@ -24,6 +26,9 @@ public class Customer implements DomainObject {
 
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders = new ArrayList<>();
 
     @Override
     public Integer getId() {

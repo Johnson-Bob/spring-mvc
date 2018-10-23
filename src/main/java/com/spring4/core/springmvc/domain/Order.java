@@ -4,10 +4,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-@Entity
-public class User implements DomainObject {
+@Entity(name = "order_table")
+public class Order implements DomainObject {
+    public enum  OrderStatus {NEW, ALLOCATED, SHIPPED}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -15,25 +19,26 @@ public class User implements DomainObject {
     @Version
     private Integer version;
 
-    private String username;
-
-    @Transient
-    private String password;
-
-    private String encryptedPassword;
-    private Boolean enabled = true;
-
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne
     private Customer customer;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    private Cart cart;
+    @Embedded
+    private Address shippingAddress;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     @CreationTimestamp
     private Date created;
 
     @UpdateTimestamp
     private Date updated;
+
+    @Temporal(TemporalType.DATE)
+    private Date shippingDate;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order", orphanRemoval = true)
+    private List<OrderLine> lines = new ArrayList<>();
 
     @Override
     public Integer getId() {
@@ -53,38 +58,6 @@ public class User implements DomainObject {
         this.version = version;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEncryptedPassword() {
-        return encryptedPassword;
-    }
-
-    public void setEncryptedPassword(String encryptedPassword) {
-        this.encryptedPassword = encryptedPassword;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
@@ -93,12 +66,20 @@ public class User implements DomainObject {
         this.customer = customer;
     }
 
-    public Cart getCart() {
-        return cart;
+    public Address getShippingAddress() {
+        return shippingAddress;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     public Date getCreated() {
@@ -115,5 +96,21 @@ public class User implements DomainObject {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public Date getShippingDate() {
+        return shippingDate;
+    }
+
+    public void setShippingDate(Date shippingDate) {
+        this.shippingDate = shippingDate;
+    }
+
+    public List<OrderLine> getLines() {
+        return lines;
+    }
+
+    public void setLines(List<OrderLine> lines) {
+        this.lines = lines;
     }
 }
