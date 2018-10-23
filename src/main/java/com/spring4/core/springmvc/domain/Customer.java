@@ -27,9 +27,6 @@ public class Customer implements DomainObject {
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Order> orders = new ArrayList<>();
-
     @Override
     public Integer getId() {
         return id;

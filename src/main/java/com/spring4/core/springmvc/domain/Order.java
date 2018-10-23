@@ -113,4 +113,14 @@ public class Order implements DomainObject {
     public void setLines(List<OrderLine> lines) {
         this.lines = lines;
     }
+
+    public void addOrderLines(OrderLine line) {
+        this.lines.add(line);
+        line.setOrder(this);
+    }
+
+    public void removeOrderLine(OrderLine line) {
+        line.setOrder(null);
+        this.lines.remove(line);
+    }
 }
