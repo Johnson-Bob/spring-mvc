@@ -12,7 +12,7 @@
     <script src="http://cdn.jsdelivr.net/webjars/jquery/3.3.1-1/jquery.min.js"
             th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
 
-    <link href="../static/css/spring-core.css"
+    <link href="../../static/css/spring-core.css"
           th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
@@ -25,6 +25,7 @@
     </div>
     <div class="row">
         <div class="col-sm-8">
+            <!--/*@thymesVar id="product" type="com.spring4.core.springmvc.domain.Product"*/-->
             <form class="form-horizontal">
                 <div class="form-group row">
                     <label class="col-sm-2 control-label">Product Id: </label>
@@ -51,6 +52,11 @@
                     </div>
                 </div>
             </form>
+            <div class="row">
+                <div class="col-sm-3">
+                    <a href="/product/list">List of Product</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
