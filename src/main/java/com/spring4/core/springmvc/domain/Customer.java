@@ -1,13 +1,26 @@
 package com.spring4.core.springmvc.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Version;
+
+@Entity
 public class Customer implements DomainObject {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Version
+    private Integer version;
+
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
-    private String addressLineOne;
-    private String addressLineTwo;
+    private String addressLine1;
+    private String addressLine2;
     private String city;
     private String state;
     private String zipCode;
@@ -20,6 +33,14 @@ public class Customer implements DomainObject {
     @Override
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public String getFirstName() {
@@ -54,20 +75,20 @@ public class Customer implements DomainObject {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getAddressLineOne() {
-        return addressLineOne;
+    public String getAddressLine1() {
+        return addressLine1;
     }
 
-    public void setAddressLineOne(String addressLineOne) {
-        this.addressLineOne = addressLineOne;
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = addressLine1;
     }
 
-    public String getAddressLineTwo() {
-        return addressLineTwo;
+    public String getAddressLine2() {
+        return addressLine2;
     }
 
-    public void setAddressLineTwo(String addressLineTwo) {
-        this.addressLineTwo = addressLineTwo;
+    public void setAddressLine2(String addressLine2) {
+        this.addressLine2 = addressLine2;
     }
 
     public String getCity() {
