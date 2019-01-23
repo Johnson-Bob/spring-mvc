@@ -1,4 +1,4 @@
-package com.spring4.core.springmvc.services;
+package com.spring4.core.springmvc.services.mapservices;
 
 import com.spring4.core.springmvc.domain.DomainObject;
 

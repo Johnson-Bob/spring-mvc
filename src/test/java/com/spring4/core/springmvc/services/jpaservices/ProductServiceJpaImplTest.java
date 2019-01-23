@@ -1,10 +1,13 @@
-package com.spring4.core.springmvc.services;
+package com.spring4.core.springmvc.services.jpaservices;
 
+import com.spring4.core.springmvc.TestUtils;
 import com.spring4.core.springmvc.configuration.JpaIntegrationConfig;
 import com.spring4.core.springmvc.domain.Product;
+import com.spring4.core.springmvc.services.ProductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -16,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = JpaIntegrationConfig.class)
+@DataJpaTest
 @ActiveProfiles("jpadao")
 public class ProductServiceJpaImplTest {
 
@@ -47,7 +51,7 @@ public class ProductServiceJpaImplTest {
         assertEquals(id, savedProduct.getId());
         assertEquals(testDescription, savedProduct.getDescription());
 
-        productService.saveOrUpdate(createProduct());
+        productService.saveOrUpdate(TestUtils.createProduct());
         assertEquals(6, productService.listAll().size());
 
         productService.delete(6);
@@ -59,15 +63,6 @@ public class ProductServiceJpaImplTest {
 
         assertEquals(4, productService.listAll().size());
 
-        productService.saveOrUpdate(createProduct());
-    }
-
-    private Product createProduct() {
-        Product product = new Product();
-        product.setDescription("Test Product");
-        product.setPrice(new BigDecimal("11.11"));
-        product.setImageUrl("http://test.img.com");
-
-        return product;
+        productService.saveOrUpdate(TestUtils.createProduct());
     }
 }

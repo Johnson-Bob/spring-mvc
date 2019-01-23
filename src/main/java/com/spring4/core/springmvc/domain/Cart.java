@@ -4,11 +4,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-public class Product implements DomainObject {
+public class Cart implements DomainObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +18,11 @@ public class Product implements DomainObject {
     @Version
     private Integer version;
 
-    private String description;
-    private BigDecimal price;
-    private String imageUrl;
+    @OneToOne
+    private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart", orphanRemoval = true)
+    private List<CartDetail> cartDetails = new ArrayList<>();
 
     @CreationTimestamp
     private Date created;
@@ -45,28 +48,30 @@ public class Product implements DomainObject {
         this.version = version;
     }
 
-    public String getDescription() {
-        return description;
+    public User getUser() {
+        return user;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public List<CartDetail> getCartDetails() {
+        return cartDetails;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setCartDetails(List<CartDetail> cartDetails) {
+        this.cartDetails = cartDetails;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public void addCartDetail(CartDetail cartDetail) {
+        cartDetails.add(cartDetail);
+        cartDetail.setCart(this);
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void removeCartDetail(CartDetail cartDetail) {
+        cartDetail.setCart(null);
+        cartDetails.remove(cartDetail);
     }
 
     public Date getCreated() {

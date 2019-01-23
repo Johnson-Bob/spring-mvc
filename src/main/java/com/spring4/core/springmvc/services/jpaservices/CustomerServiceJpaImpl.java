@@ -1,6 +1,10 @@
-package com.spring4.core.springmvc.services;
+package com.spring4.core.springmvc.services.jpaservices;
 
 import com.spring4.core.springmvc.domain.Customer;
+import com.spring4.core.springmvc.domain.User;
+import com.spring4.core.springmvc.services.CustomerService;
+import com.spring4.core.springmvc.services.security.EncryptionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +17,13 @@ import java.util.List;
 @Profile("jpadao")
 public class CustomerServiceJpaImpl implements CustomerService {
 
-    private EntityManagerFactory entityManagerFactory;
+    @Autowired
+    private EncryptionService encryptionService;
+
     private EntityManager entityManager;
+
     @PersistenceUnit
-    public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
+    public void setEntityManager(EntityManagerFactory entityManagerFactory) {
         this.entityManager = entityManagerFactory.createEntityManager();
     }
 
@@ -34,6 +40,11 @@ public class CustomerServiceJpaImpl implements CustomerService {
     @Override
     public Customer saveOrUpdate(Customer domainObject) {
         entityManager.getTransaction().begin();
+
+        User user = domainObject.getUser();
+        if (user != null && user.getPassword() != null) {
+            user.setEncryptedPassword(encryptionService.encryptionString(user.getPassword()));
+        }
         Customer savedCustomer = entityManager.merge(domainObject);
         entityManager.getTransaction().commit();
 

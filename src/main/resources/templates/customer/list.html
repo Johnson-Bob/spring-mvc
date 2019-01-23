@@ -36,17 +36,18 @@
             </tr>
             <!--/*@thymesVar id="customers" type="com.spring4.core.springmvc.domain.Customer"*/-->
             <!--/*@thymesVar id="customers" type="java.util.List<com.spring4.core.springmvc.domain.Customer>"*/-->
+            <!--/*@thymesVar id="billingAddress" type="com.spring4.core.springmvc.domain.Address"*/-->
             <tr th:each="customer : ${customers}">
                 <td th:text="${customer.id}"/>
                 <td th:text="${customer.firstName}"/>
                 <td th:text="${customer.lastName}"/>
                 <td th:text="${customer.email}"/>
                 <td th:text="${customer.phoneNumber}"/>
-                <td th:text="${customer.addressLine1}"/>
-                <td th:text="${customer.addressLine2}"/>
-                <td th:text="${customer.city}"/>
-                <td th:text="${customer.state}"/>
-                <td th:text="${customer.zipCode}"/>
+                <td th:text="${customer.billingAddress.addressLine1}"/>
+                <td th:text="${customer.billingAddress.addressLine2}"/>
+                <td th:text="${customer.billingAddress.city}"/>
+                <td th:text="${customer.billingAddress.state}"/>
+                <td th:text="${customer.billingAddress.zipCode}"/>
                 <td><a th:href="${'/customer/' + customer.id}">View</a></td>
                 <td><a th:href="${'/customer/edit/' + customer.id}">Edit</a></td>
                 <td><a th:href="${'/customer/delete/' + customer.id}">Delete</a></td>
